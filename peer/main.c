@@ -200,7 +200,7 @@ If all was correctly executed, now we should start the wg tunnel so that the enc
     printf("\nACTIVACTING VPN...");
     sleep(2);
 	//secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
-
+    system("sudo wg-quick up /Users/gabri/Desktop/secure_p2p_chat_1.0/peer/.vpn-secrets/wg0_vpn.conf");
  //new version
  secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
 
