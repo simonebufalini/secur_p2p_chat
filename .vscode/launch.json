@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/gabri/Desktop/secure_p2p_chat_1.0/peer",
+      "program": "/Users/gabri/Desktop/secure_p2p_chat_1.0/peer/build/Debug/outDebug"
+    }
+  ]
+}

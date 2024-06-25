@@ -47,6 +47,7 @@ int main()
 {
 	char cwd[1024];
 	getcwd(cwd, sizeof(cwd));
+	DEBUG_PRINT("%s", cwd);
 
 	char *pathVPNconfiguration = concatenateStrings(cwd, "/.vpn-secrets/wg0_vpn.conf");
 	char *pathWireguardPrivateKey = concatenateStrings(cwd, "/.vpn-secrets/privatekey");
@@ -146,6 +147,8 @@ and also THE PRIVATE IP TO PUT IN THE SECUREP2PCHAT FUNCTION to enable the conne
 	snprintf(path_private_ip_address_peer, sizeof(path_private_ip_address_peer), "%s/%s/private_address",cwd,peer_folder_on_host);
 	char *private_ip_of_peer= readFile(path_private_ip_address_peer);
 
+	DEBUG_PRINT("\n\n\nPrivate ip of peer: %s\n\n\n",private_ip_of_peer);
+
 
 
 
@@ -199,8 +202,9 @@ If all was correctly executed, now we should start the wg tunnel so that the enc
 	//qui ci deve esseee attivazione vpn, sennò no funzia
     printf("\nACTIVACTING VPN...");
     sleep(2);
-	//secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
-    system("sudo wg-quick up /Users/gabri/Desktop/secure_p2p_chat_1.0/peer/.vpn-secrets/wg0_vpn.conf");
+
+    char attiva_vpn[150];
+    snprintf(attiva_vpn, sizeof attiva_vpn,"sudo wg-quick up %s", pathVPNconfiguration); //comando per attivare vpn
  //new version
  secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
 
