@@ -15,7 +15,7 @@
 #include "librerie/configuringVpn.h"
 #include "librerie/readFile.h"
 #include "librerie/file_sender_new.h"
-#include "librerie/main_p2p_chat.h"
+//#include "librerie/main_p2p_chat.h"
 #include "librerie/miaLibVarie.h"
 #include "librerie/new_version_p2p_chat.h"
 
@@ -193,10 +193,12 @@ and also THE PRIVATE IP TO PUT IN THE SECUREP2PCHAT FUNCTION to enable the conne
 
 /*
 CHECKPOINT 2 REACHED.
-If all was correctly executed, now we should start the wg tunnel so that the encr chat can start
-*/
+If all was correctly executed, now we should start the wg tunnel so that the encr chat can start.
 
-    DEBUG_PRINT("\n\n%s", peerPubKey_due);
+Al 26 giugno, tutto funziona perfettamente fino a questo putno. Ci sono solo dei
+problemi per quanto riguarda la memoria. Chiaramente, da questo punto in acanti non funzia
+Inoltre, dovrai inserire un controllo che disattiva la conf wireguard quando si quitta
+*/
 
 
 	//qui ci deve esseee attivazione vpn, sennò no funzia
@@ -204,13 +206,16 @@ If all was correctly executed, now we should start the wg tunnel so that the enc
     sleep(2);
 
     char attiva_vpn[150];
-    snprintf(attiva_vpn, sizeof attiva_vpn,"sudo wg-quick up %s", pathVPNconfiguration); //comando per attivare vpn
- //new version
- secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
+    snprintf(attiva_vpn, sizeof attiva_vpn,"sudo wg-quick up %s", destFile); //comando per attivare vpn
+    system(attiva_vpn);
+
+
+    //new version
+    secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
 
 
 
- //now wee should erease the config file and the folder
+    //now wee should erease the config file and the folder
 	free(pathVPNconfiguration);
 	free(pathWireguardPrivateKey);
 
