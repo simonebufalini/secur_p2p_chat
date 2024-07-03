@@ -21,7 +21,7 @@
 
 
 #define MAX_IP_LENGTH 18
-#define PORT 8080
+#define PORT 51810
 #define MAX_BUF_SIZE 1024
 
 #define PATH_TRACKER_DIRECTORY "http://13.53.40.109:8080/home/ubuntu/apple/"
