@@ -1,6 +1,0 @@
-[PEER]
-PublicKey =  ZMTrai8Ia95FqEjoY9c2osM3reWQnFd7DxPf5pCeCWU=
-
-AllowedIPs = 10.0.0.2/24
-Endpoint = 151.27.57.216:51810
-PersistentKeepalive = 25
