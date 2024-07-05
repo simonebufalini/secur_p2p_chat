@@ -38,14 +38,14 @@ THE TRACKER ASSUMES THAT:
 Let's now talk about the big part. 
 
 #### 2.1 Makefile
-To compile and run the code, use
+- To compile and run the code, use
 
 ```bash
 make compile
 run
 ```
 
- If you want to compile and run with debug information printed to console, use
+- If you want to compile and run with debug information printed to console, use
 
 ```bash
 make compile_debug
@@ -56,5 +56,29 @@ Once used, use
 ```bash
 make clean
 ```
-to clean the diretory (also remember to delete the hidden folders!)
+- to clean the diretory (also remember to delete the hidden folders!)
 
+#### 2.2 main.c
+- First we include all the libraries, both the 'classics' and the custom written ones.
+```C
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <pthread.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/err.h>
+#include <curl/curl.h>
+#include "librerie/configuringVpn.h"
+#include "librerie/readFile.h"
+#include "librerie/file_sender_new.h"
+#include "librerie/miaLibVarie.h"
+#include "librerie/new_version_p2p_chat.h"
+```
+- 
+- 
