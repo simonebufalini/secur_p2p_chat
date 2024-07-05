@@ -87,7 +87,7 @@ make clean
 #define PORT 51810
 #define MAX_BUF_SIZE 1024
 ```
-- Lasst, but not least, we define the IP and the DIR of the tracker (this should be customizeed accordingly - in the future will write a setupper to aumatically do this when building from source)
+- Last, but not least, we define the IP and the DIR of the tracker (this should be customizeed accordingly - in the future will write a setupper to aumatically do this when building from source)
 ```C
 #define PATH_TRACKER_DIRECTORY "http://13.53.40.109:8080/home/ubuntu/apple/"
 #define TRACKER_SERVER_IP "13.53.40.109"
@@ -103,10 +103,25 @@ make clean
 
 ```
 
-##### 2.2.2. - Functions
+##### 2.2.2 - Functions
 - The "retrieve_assigend_private_ip" function retrives the assgned private ip from the tracker server
 - The "download_file" functions downloads a file using wget.
 ```C
 char* retrieve_assigend_private_ip(const char* host, int port);  // -> from the tracker server
 void download_file(const char *base_url, const char *ip_folder, const char *filename); // -> from the tracker server
 ```
+
+##### 2.2.3 - Main
+- We begin by finding the current working directory (cwd)
+```C
+char cwd[1024];
+getcwd(cwd, sizeof(cwd));
+DEBUG_PRINT("%s", cwd); //this will print only if you compiled with debug. 
+```
+- Now we concatenate the cwd with the needed folders in order to create and access them later.
+```C
+char *pathVPNconfiguration = concatenateStrings(cwd, "/.vpn-secrets/wg0_vpn.conf");
+char *pathWireguardPrivateKey = concatenateStrings(cwd, "/.vpn-secrets/privatekey");
+```
+
+
