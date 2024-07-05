@@ -8,4 +8,6 @@ Dependencies:
 
 <b>Run 'make dep' to install them<b>
 
-### Documentation
+## Documentation
+### 1. PEER
+In the future we are adding a dialog base configuration to facilitatee the process.
