@@ -93,15 +93,20 @@ make clean
 #define TRACKER_SERVER_IP "13.53.40.109"
 ```
 - We later define the conditional debug stuff
-  ```C
+
+```C
 #ifdef DEBUG
     #define DEBUG_PRINT(fmt, args...)    fprintf(stderr, "DEBUG: " fmt, ## args)
 #else
     #define DEBUG_PRINT(fmt, args...)    /* Don't do anything in release builds */
 #endif
+
 ```
 
 ##### 2.2.2. - Functions
+- The "retrieve_assigend_private_ip" function retrives the assgned private ip from the tracker server
+- The "download_file" functions downloads a file using wget.
+```C
 char* retrieve_assigend_private_ip(const char* host, int port);  // -> from the tracker server
 void download_file(const char *base_url, const char *ip_folder, const char *filename); // -> from the tracker server
-
+```
