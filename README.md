@@ -10,6 +10,13 @@ Dependencies:
 - curl  (sudo apt install curl)
 
 Run 'make dep' to install them
+____
+
+## Funzionamento
+
+Cose
+
+-----
 
 ## Documentation
 
@@ -26,4 +33,28 @@ THE TRACKER ASSUMES THAT:
     const int available_ports[NUM_PORTS] = {6969, 51810, 51812, 51811, 8080};
     http://<pub ip>:<port>/home/ubuntu/apple/ existis
 ```
-    
+
+### 2. Peer
+Let's now talk about the big part. 
+
+#### 2.1 Makefile
+To compile and run the code, use
+
+```bash
+make compile
+run
+```
+
+ If you want to compile and run with debug information printed to console, use
+
+```bash
+make compile_debug
+run_debug
+```
+
+Once used, use 
+```bash
+make clean
+```
+to clean the diretory (also remember to delete the hidden folders!)
+
