@@ -13,6 +13,7 @@ Dependencies:
 
 ## Documentation
 ### 1. Tracker
+
 The Tracker file is a unique source file, with all the necessary parts built in. Just compile it with 
 ```bash
 gcc tracker.c -o tracker
