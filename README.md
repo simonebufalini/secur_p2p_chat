@@ -33,7 +33,7 @@ THE TRACKER ASSUMES THAT:
     const int available_ports[NUM_PORTS] = {6969, 51810, 51812, 51811, 8080};
     http://<pub ip>:<port>/home/ubuntu/apple/ existis
 ```
-
+-------------
 ### 2. Peer
 Let's now talk about the big part. 
 
