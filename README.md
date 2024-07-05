@@ -7,3 +7,5 @@ Dependencies:
 - curl  (sudo apt install curl)
 
 <b>Run 'make dep' to install them<b>
+
+### Documentation
