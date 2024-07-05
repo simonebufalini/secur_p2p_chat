@@ -59,6 +59,7 @@ make clean
 - to clean the diretory (also remember to delete the hidden folders!)
 
 #### 2.2 main.c
+##### - 2.2.1 Headers
 - First we include all the libraries, both the 'classics' and the custom written ones.
 ```C
 #include <sys/stat.h>
@@ -80,5 +81,27 @@ make clean
 #include "librerie/miaLibVarie.h"
 #include "librerie/new_version_p2p_chat.h"
 ```
-- 
-- 
+- Then we define costants
+```C
+#define MAX_IP_LENGTH 18
+#define PORT 51810
+#define MAX_BUF_SIZE 1024
+```
+- Lasst, but not least, we define the IP and the DIR of the tracker (this should be customizeed accordingly - in the future will write a setupper to aumatically do this when building from source)
+```C
+#define PATH_TRACKER_DIRECTORY "http://13.53.40.109:8080/home/ubuntu/apple/"
+#define TRACKER_SERVER_IP "13.53.40.109"
+```
+- We later define the conditional debug stuff
+  ```C
+#ifdef DEBUG
+    #define DEBUG_PRINT(fmt, args...)    fprintf(stderr, "DEBUG: " fmt, ## args)
+#else
+    #define DEBUG_PRINT(fmt, args...)    /* Don't do anything in release builds */
+#endif
+```
+
+##### 2.2.2. - Functions
+char* retrieve_assigend_private_ip(const char* host, int port);  // -> from the tracker server
+void download_file(const char *base_url, const char *ip_folder, const char *filename); // -> from the tracker server
+
