@@ -9,9 +9,10 @@ Dependencies:
 - wireguard (sudo apt install wireguard)
 - curl  (sudo apt install curl)
 
-<b>Run 'make dep' to install them<b>
+Run 'make dep' to install them
 
 ## Documentation
+
 ### 1. Tracker
 
 The Tracker file is a unique source file, with all the necessary parts built in. Just compile it with 
