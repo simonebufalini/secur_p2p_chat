@@ -21,5 +21,9 @@ gcc tracker.c -o tracker
 ```
 
 THE TRACKER ASSUMES THAT:
+
+```C
     const int available_ports[NUM_PORTS] = {6969, 51810, 51812, 51811, 8080};
     http://<pub ip>:<port>/home/ubuntu/apple/ existis
+```
+    
