@@ -55,7 +55,8 @@ THE TRACKER ASSUMES THAT:
 ### 2. Peer
 Let's now talk about the big part. 
 
-#### 2.1 Makefile
+#### 2.1 Compiling
+Makefiles are used to simplify the compilation process. 
 - To compile and run the code, use
 
 ```bash
