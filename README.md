@@ -25,11 +25,15 @@ In the future we are adding a dialog base configuration to facilitatee the proce
 --------
 Dependencies:
 - libssl (sudo apt-get install libssl-dev)
-- wget
+- wget (sudo apt-get install wget)
 - wireguard (sudo apt install wireguard)
 - curl  (sudo apt install curl)
 
-Run 'make dep' to install them
+Run
+```bash
+make dep'
+```
+ to install them.
 ____
 
 ## Documentation
