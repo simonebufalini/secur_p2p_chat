@@ -31,7 +31,7 @@ Dependencies:
 
 Run
 ```bash
-make dep'
+make dep
 ```
  to install them.
 ____
