@@ -12,9 +12,13 @@ Dependencies:
 Run 'make dep' to install them
 ____
 
-## Funzionamento
+## But how does it work?
 
-Cose
+secure_p2p_chat is a safe way to chat with a peer without a centralized server that routes the messages. The tracker server is theere only to assign a private ipv4 address to confiure the VPN and to store data useful for the connection.
+
+First of all, the peer retrieves the private ip address assigend by the tracker. Then it generates a RSA private key and its realtive public one and the first part of the wireguard configuration.
+
+After this, it uploads to the tracker server the public key for the RSA encryption and the Peer configuration for wireguard (aka, what others should wirte in theeir own config file in order to connect to this host) in a specific folder, named .<host-pub-ipv4>-files
 
 -----
 
