@@ -1,5 +1,11 @@
 # secure_p2p_chat
 -----
+- What is secure_p2p_chat?
+- But how does it work?
+- Installation
+- Documentation
+  - Tracker
+  - Peer
 
 
 ## What is secure_p2p_chat?
