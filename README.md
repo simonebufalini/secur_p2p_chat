@@ -1,9 +1,9 @@
 # secure_p2p_chat
 -----
-- [What is secure_p2p_chat?] (https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#what-is-secure_p2p_chat)
-- [But how does it work?] (https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#but-how-does-it-work)
-- [Installation] (https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#installation)
-- [Documentation] (https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#documentation)
+- [What is secure_p2p_chat?](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#what-is-secure_p2p_chat)
+- [But how does it work?](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#but-how-does-it-work)
+- [Installation](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#installation)
+- [Documentation](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#documentation)
   - [Tracker]
   - [Peer]
 
