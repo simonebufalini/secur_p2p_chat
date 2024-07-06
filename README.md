@@ -4,8 +4,8 @@
 - [But how does it work?](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#but-how-does-it-work)
 - [Installation](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#installation)
 - [Documentation](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#documentation)
-  - [Tracker]
-  - [Peer]
+  - [Tracker](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#1-tracker)
+  - [Peer](https://github.com/gabricampaa/secur_p2p_chat/tree/main#2-peer)
 
 
 ## What is secure_p2p_chat?
