@@ -8,9 +8,13 @@ secure_p2p_chat is a safe way to chat with a peer without a centralized server t
 
 ## But how does it work?
 
-First of all, the peer retrieves the private ip address assigend by the tracker. Then it generates a RSA private key and its realtive public one and the first part of the wireguard configuration.
+First of all, the peer connects to the tracker and retrieves the private ip address assigend by it. Then it generates a RSA private key and its realtive public one and the first part of the wireguard configuration.
 
-After this, it uploads to the tracker server the public key for the RSA encryption and the Peer configuration for wireguard (aka, what others should wirte in theeir own config file in order to connect to this host) in a specific folder, named .<host-pub-ipv4>-files
+After this, it uploads to the tracker server the public key for the RSA encryption (used for encrypting messages) and the Peer configuration for wireguard (aka, what others should wirte in theeir own config file in order to connect to this host) in a specific folder, named .<host-pub-ipv4>-files
+
+This gets us to the first checkpoint.
+
+Now we have the second part, conneceting to the peer. The program prompts us the public ipv4 of the peer we wanna chat with (the ONLY info we need). Then it downloads all the needed stuff to connect to the peer and auto adds them to the respective  configuration files.
 
 -----
 ## Installation
