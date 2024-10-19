@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS  = -lssl -pthread -lcrypto -lcurl
+CFLAGS  = -lssl -pthread -lcrypto -lcurl -Wall
 TARGET = main
 executable_name = main_beta
 other_files = librerie/new_version_p2p_chat.c librerie/readFile.c librerie/configuringVpn.c librerie/file_sender_new.c librerie/crittografia.c librerie/miaLibVarie.c #librerie/main_p2p_chat.c
