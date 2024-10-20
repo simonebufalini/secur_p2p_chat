@@ -80,7 +80,7 @@ void write_public_key(RSA *rsa, const char *path_to_pub_key) {
     BIO_free_all(bio);
 }
 
-int RSACommLib_Init(int key_size, const char *path_to_save_priv_key, const char *path_to_save_pub_key){
+int RSACommLib_Init(int key_size, const char *path_to_priv_key, const char *path_to_pub_key){
 
     OpenSSL_add_all_algorithms();
     ERR_load_crypto_strings();
@@ -116,12 +116,12 @@ int RSACommLib_Init(int key_size, const char *path_to_save_priv_key, const char 
     fprintf(stdout, "RSA key successfully generated\n");
     print_public_key(rsa);
     
-    write_private_key(rsa, path_to_save_priv_key);
-    write_public_key(rsa, path_to_save_pub_key);
+    write_private_key(rsa, path_to_priv_key);
+    write_public_key(rsa, path_to_pub_key);
 
     mode_t mode = 0644;
-    chmod(path_to_save_priv_key, mode);
-    chmod(path_to_save_pub_key, mode);
+    chmod(path_to_priv_key, mode);
+    chmod(path_to_pub_key, mode);
 
     BN_free(bn);
     RSA_free(rsa);
