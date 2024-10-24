@@ -1,2 +1,0 @@
-unsigned char* crittografa(const char* pathToPeerPubKey, const char *plaintext, int *ciphertext_len) ;
-unsigned char *decrittografa(const char *testoCrittato,int ciphertext_len, const char* pathToHostPrivateKey);
