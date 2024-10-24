@@ -1,0 +1,49 @@
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall
+LDFLAGS = -lssl -pthread -lcrypto -lcurl
+
+# Targets and filenames
+TARGET = main
+EXECUTABLE = main_beta
+DEBUG_SUFFIX = _debug
+
+# Source files
+OTHER_FILES = librerie/RSACommLib.c librerie/new_version_p2p_chat.c \
+              librerie/readFile.c librerie/configuringVpn.c \
+              librerie/file_sender_new.c librerie/crittografia.c \
+              librerie/miaLibVarie.c
+
+# Dependencies
+DEPENDENCIES = libcurl wget openssl gcc wireguard
+DEPENDENCY_INSTALL = sudo apt install libssl-dev
+
+# Rules
+.PHONY: all compile compile_debug clean run run_debug cripto_test clean_cripto
+
+all: compile
+
+compile:
+	$(CC) $(TARGET).c -o $(EXECUTABLE) $(OTHER_FILES) $(CFLAGS) $(LDFLAGS)
+
+compile_debug:
+	$(CC) $(TARGET).c -o $(EXECUTABLE)$(DEBUG_SUFFIX) $(OTHER_FILES) $(CFLAGS) $(LDFLAGS) -DDEBUG
+
+clean:
+	rm -f $(EXECUTABLE) $(EXECUTABLE)$(DEBUG_SUFFIX)
+	sudo rm -rf .vpn-secrets .secrets
+	sudo rm -f public_key.pem HostConfForPeer
+	sudo rm -rf $(EXECUTABLE).dSYM
+
+run:
+	./$(EXECUTABLE)
+
+run_debug:
+	./$(EXECUTABLE)$(DEBUG_SUFFIX)
+
+cripto_test:
+	$(CC) test_cripto.c librerie/RSACommLib.c -o rsa_test $(LDFLAGS) -w
+
+clean_cripto:
+	rm -f *.pem rsa_test
+
