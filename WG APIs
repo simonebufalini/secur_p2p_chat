@@ -1,0 +1,3 @@
+WireGuard (WG) APIs:
+https://git.zx2c4.com/wireguard-tools/tree/contrib/embeddable-wg-library - Linux
+https://git.zx2c4.com/wireguard-apple/about/#wireguardkit-integration - MacOs
