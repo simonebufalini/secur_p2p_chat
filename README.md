@@ -1,3 +1,5 @@
+#  MI SONO ROTTO IL CAZZO. SE WG NON VA USO TAILSCALE.
+
 # secure_p2p_chat
 -----
 - [What is secure_p2p_chat?](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#what-is-secure_p2p_chat)
