@@ -1,0 +1,6 @@
+
+problemi con wreguard. per il resto lo scambio dei file è perfetto
+
+aggiungerei, al server, che una volta raggiunta la fine elimina tutti i dati
+
+INOTLRE, quando quiti deve disattivare conf wireguard
