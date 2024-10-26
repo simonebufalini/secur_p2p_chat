@@ -30,6 +30,11 @@ Now we have the second part, conneceting to the peer. The program prompts us the
 
 In the future we are adding a dialog base configuration to facilitatee the process.
 
+PRE-REQUISITES:
+gcc
+make
+
+
 --------
 Dependencies:
 - libssl (sudo apt-get install libssl-dev)
