@@ -20,6 +20,8 @@
 #include "readFile.h"
 #include "miaLibVarie.h"
 
+#include "RSACommLib.h"
+
 
 
 int vpnConf(char *workingDirectory)
@@ -84,8 +86,19 @@ void crittografiaSetup(char *workingDirectory)
 	char dirSecret[200];
 	snprintf(dirSecret, sizeof(dirSecret), "%s/.secrets/", workingDirectory);
 
-	system("openssl genrsa -out private_key.pem 2048");
-	system("openssl rsa -pubout -in private_key.pem -out public_key.pem");
+	//system("openssl genrsa -out private_key.pem 2048");
+	//system("openssl rsa -pubout -in private_key.pem -out public_key.pem");
+
+	//generating keys with simons stuff
+    const char *private_key_file = "private_key.pem";
+    const char *public_key_file = "public_key.pem";
+    const int key_size = 2048;
+
+    // Step 1: Generate RSA keys
+    if (RSACommLib_Init(key_size, private_key_file, public_key_file) != 0) {
+        fprintf(stderr, "Failed to initialize RSA keys\n");
+        //return 1;
+    }
 	mkdir(dirSecret, 0777);
 
 	char comandoSpostaChiavi[300];

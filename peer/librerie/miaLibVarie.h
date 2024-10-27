@@ -28,14 +28,14 @@ char* askQuestion(const char *question);
 void error(const char *msg);
 
 
-
+/*
 typedef struct {
     char serverIp[16];
     int port;
     char filePath[256];
 } ThreadArgs;
 
-
+ */
 int reciver(int choosenPort, char *outputFile);
 void sender(const char *server_ip,int server_port,const char *file_path);
 void *receiver(void *arg) ;
@@ -45,5 +45,3 @@ size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata);
 int Search_in_File(char *fname, char *str);
 
 int writeToFilePath(const char *filePath, const char * textToWrite);
-
-

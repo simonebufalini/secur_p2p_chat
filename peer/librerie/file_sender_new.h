@@ -8,4 +8,4 @@
 
 void send_file(FILE *file, int socket);
 
-int sender_nuovo(char *fileDaInviare[]);
+int sender_nuovo(char fileDaInviare[]);

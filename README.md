@@ -1,3 +1,4 @@
+**AL 26 OTTOBRE, SU DUE MACCHINE LINUX, VA TUTTO TRANNE LA FUNZIA DI DECRYPT**
 # secure_p2p_chat
 -----
 - [What is secure_p2p_chat?](https://github.com/gabricampaa/secur_p2p_chat/tree/main?tab=readme-ov-file#what-is-secure_p2p_chat)
@@ -27,6 +28,11 @@ Now we have the second part, conneceting to the peer. The program prompts us the
 
 
 In the future we are adding a dialog base configuration to facilitatee the process.
+
+PRE-REQUISITES:
+gcc
+make
+
 
 --------
 Dependencies:

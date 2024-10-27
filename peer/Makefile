@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS  = -lssl -pthread -lcrypto -lcurl -Wall
+CFLAGS  = -lssl -pthread -lcrypto -lcurl -w #-Wall
 TARGET = main
 executable_name = main_beta
-other_files = librerie/new_version_p2p_chat.c librerie/readFile.c librerie/configuringVpn.c librerie/file_sender_new.c librerie/crittografia.c librerie/miaLibVarie.c #librerie/main_p2p_chat.c
+other_files = librerie/RSACommLib.c librerie/readFile.c librerie/configuringVpn.c librerie/file_sender_new.c librerie/miaLibVarie.c librerie/p2p_chat.c
 
 dependencies =libcurl, wget, openssl, gcc, wireguard, sudo apt install libssl-dev
 
@@ -11,6 +11,11 @@ compile:
 
 compile_debug:
 	$(CC) $(TARGET).c -o $(executable_name)_debug $(other_files) $(CFLAGS) -DDEBUG
+
+
+
+
+
 clean:
 	rm -f $(executable_name)
 	rm -f $(executable_name)_debug

@@ -23,7 +23,7 @@ void send_file(FILE *file, int socket) {
 }
 
 //this will have to take the tracker's ip
-int sender_nuovo(char *fileDaInviare[]){
+int sender_nuovo(char *fileDaInviare){
 
     const char *file_path = fileDaInviare;
     const char *file_name = strrchr(file_path, '/');

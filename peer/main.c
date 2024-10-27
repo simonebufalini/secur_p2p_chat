@@ -15,9 +15,9 @@
 #include "librerie/configuringVpn.h"
 #include "librerie/readFile.h"
 #include "librerie/file_sender_new.h"
-//#include "librerie/main_p2p_chat.h"
 #include "librerie/miaLibVarie.h"
-#include "librerie/new_version_p2p_chat.h"
+#include "librerie/RSACommLib.h"
+#include "librerie/p2p_chat.h"
 
 
 #define MAX_IP_LENGTH 18
@@ -28,10 +28,6 @@
 #define TRACKER_SERVER_IP "13.53.40.109"
 
 //conditional debug
-// Define DEBUG to enable debug mode
-// This can be defined in the code or via the compiler command line
-//#define DEBUG
-
 #ifdef DEBUG
     #define DEBUG_PRINT(fmt, args...)    fprintf(stderr, "DEBUG: " fmt, ## args)
 #else
@@ -43,6 +39,7 @@
 char* retrieve_assigend_private_ip(const char* host, int port);  // -> from the tracker server
 void download_file(const char *base_url, const char *ip_folder, const char *filename); // -> from the tracker server
 
+
 int main()
 {
 	char cwd[1024];
@@ -51,7 +48,6 @@ int main()
 
 	char *pathVPNconfiguration = concatenateStrings(cwd, "/.vpn-secrets/wg0_vpn.conf");
 	char *pathWireguardPrivateKey = concatenateStrings(cwd, "/.vpn-secrets/privatekey");
-
 
 
 	//connecting to the tracker so it can assign this machine's private ip address (for the vpn connection)
@@ -125,9 +121,11 @@ int main()
 /*DOWNLOADING the HostConfForPeer, the public_key.pem for ssl encryption
 and also THE PRIVATE IP TO PUT IN THE SECUREP2PCHAT FUNCTION to enable the connection
 */
+    DEBUG_PRINT("\nStarting to get the peer stuff...\n");
     download_file(PATH_TRACKER_DIRECTORY, long_query, "HostConfForPeer");
     download_file(PATH_TRACKER_DIRECTORY, long_query, "public_key.pem");
     download_file(PATH_TRACKER_DIRECTORY, long_query, "private_address");
+    DEBUG_PRINT("\n%s stuff gotten!", ip_query);
 
 
 	//movving all in the folder for that ip
@@ -211,8 +209,7 @@ Inoltre, dovrai inserire un controllo che disattiva la conf wireguard quando si 
 
 
     //new version
-    secureP2Pchat(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
-
+    secureP2Pchat_simone(private_ip_of_peer, peerPubKey_due, hostPrivateKey);
 
 
     //now wee should erease the config file and the folder

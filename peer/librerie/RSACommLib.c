@@ -80,11 +80,17 @@ void write_public_key(RSA *rsa, const char *path_to_pub_key) {
     BIO_free_all(bio);
 }
 
-int RSACommLib_Init(int key_size, const char *path_to_save_priv_key, const char *path_to_save_pub_key){
-
+int RSACommLib_Init(int key_size, const char *path_to_priv_key, const char *path_to_pub_key){
+    if (path_to_priv_key == NULL || path_to_pub_key == NULL) {
+        fprintf(stderr, "Error: Path to private key or public key is NULL.\n");
+        return -1; // or handle the error as needed
+    }
+    
     OpenSSL_add_all_algorithms();
     ERR_load_crypto_strings();
-    
+
+
+
     RSA *rsa = RSA_new();
     if (rsa == NULL){
         RSA_free(rsa);
@@ -115,13 +121,13 @@ int RSACommLib_Init(int key_size, const char *path_to_save_priv_key, const char 
 
     fprintf(stdout, "RSA key successfully generated\n");
     print_public_key(rsa);
-    
-    write_private_key(rsa, path_to_save_priv_key);
-    write_public_key(rsa, path_to_save_pub_key);
+
+    write_private_key(rsa, path_to_priv_key);
+    write_public_key(rsa, path_to_pub_key);
 
     mode_t mode = 0644;
-    chmod(path_to_save_priv_key, mode);
-    chmod(path_to_save_pub_key, mode);
+    chmod(path_to_priv_key, mode);
+    chmod(path_to_pub_key, mode);
 
     BN_free(bn);
     RSA_free(rsa);
@@ -146,7 +152,7 @@ int RSACommLib_Encrypt(const char *public_key_file, const char *input_buffer, ch
 
     int input_length = strlen(input_buffer);
     int rsa_size = RSA_size(rsa);
-    
+
     if (input_length > rsa_size - RSA_PADDING_OVERHEAD) {
         fprintf(stderr, "Input buffer is too large for the RSA key size\n");
         printError();
@@ -154,10 +160,10 @@ int RSACommLib_Encrypt(const char *public_key_file, const char *input_buffer, ch
         return -1;
     }
 
-    int encrypted_length = RSA_public_encrypt(input_length, (unsigned char *)input_buffer, 
-                                              (unsigned char *)output_buffer, 
+    int encrypted_length = RSA_public_encrypt(input_length, (unsigned char *)input_buffer,
+                                              (unsigned char *)output_buffer,
                                               rsa, RSA_PKCS1_OAEP_PADDING);
-    
+
     RSA_free(rsa);
     if (encrypted_length == -1) {
         fprintf(stderr, "RSA_public_encrypt failed to encrypt data\n");
@@ -192,7 +198,7 @@ int RSACommLib_Decrypt(const char *private_key_file, const char *input_buffer, c
     int decrypted_length = RSA_private_decrypt(rsa_size, (unsigned char *)input_buffer,
                                                 (unsigned char *)output_buffer,
                                                 rsa, RSA_PKCS1_OAEP_PADDING);
-    
+
     RSA_free(rsa);
     if (decrypted_length == -1) {
         fprintf(stderr, "RSA_private_decrypt failed to decrypt data\n");
