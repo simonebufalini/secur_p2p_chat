@@ -162,6 +162,10 @@ int base64_decode(const char *input, unsigned char *output) {
     int output_length = BIO_read(bio, output, decode_len);
     BIO_free_all(bio);
 
+    if (output_length > 0) {
+        output[output_length] = '\0';
+    }
+
     return output_length;
 }
 
