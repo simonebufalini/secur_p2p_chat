@@ -1,1 +1,3 @@
-quando premi 0 nella chat (o Ctrl+C) lui deve disattivare il vpn
+quando premi 0 nella chat (o Ctrl+C) lui deve disattivare la connessione vpn (SINGALS e EXCEPTIONS)
+
+AGGIUSTARE IL MOMENTO IN CUI LUI SHOWA IL MESSAGGIO DECRITTATO (che ora c'è ssolo se premo 1/0, quindi dopo un input)
