@@ -13,19 +13,20 @@
 #define PUBLIC_EXP 65537
 #define MAX_BYTES 64
 
-void printError(){
-
+void printError() {
     ERR_print_errors_fp(stderr);
 }
 
 void handleErrors() {
-
     ERR_print_errors_fp(stderr);
     abort();
 }
 
-void print_public_key(RSA *rsa) {
+int calculate_base64_encoded_size(int input_size) {
+    return ((input_size + 2) / 3) * 4 + 1;
+}
 
+void print_public_key(RSA *rsa) {
     BIO *bio = BIO_new_fp(stdout, BIO_NOCLOSE);
     if (bio == NULL) {
         fprintf(stderr, "Failed to create BIO\n");
@@ -39,8 +40,7 @@ void print_public_key(RSA *rsa) {
     BIO_free(bio);
 }
 
-int init_prng(){
-
+int init_prng() {
     if (RAND_load_file("/dev/urandom", MAX_BYTES) <= 0) {
         return 1;
     }
@@ -51,7 +51,6 @@ int init_prng(){
 }
 
 void write_private_key(RSA *rsa, const char *path_to_priv_key) {
-
     BIO *bio = BIO_new_file(path_to_priv_key, "w");
     if (bio == NULL) {
         handleErrors();
@@ -66,7 +65,6 @@ void write_private_key(RSA *rsa, const char *path_to_priv_key) {
 }
 
 void write_public_key(RSA *rsa, const char *path_to_pub_key) {
-
     BIO *bio = BIO_new_file(path_to_pub_key, "w");
     if (bio == NULL) {
         handleErrors();
@@ -80,19 +78,17 @@ void write_public_key(RSA *rsa, const char *path_to_pub_key) {
     BIO_free_all(bio);
 }
 
-int RSACommLib_Init(int key_size, const char *path_to_priv_key, const char *path_to_pub_key){
+int RSACommLib_Init(int key_size, const char *path_to_priv_key, const char *path_to_pub_key) {
     if (path_to_priv_key == NULL || path_to_pub_key == NULL) {
         fprintf(stderr, "Error: Path to private key or public key is NULL.\n");
-        return -1; // or handle the error as needed
+        return -1;
     }
     
     OpenSSL_add_all_algorithms();
     ERR_load_crypto_strings();
 
-
-
     RSA *rsa = RSA_new();
-    if (rsa == NULL){
+    if (rsa == NULL) {
         RSA_free(rsa);
         handleErrors();
     }
@@ -112,7 +108,7 @@ int RSACommLib_Init(int key_size, const char *path_to_priv_key, const char *path
         fprintf(stdout, "Custom PRNG initialized\n");
     }
 
-    if (RSA_generate_key_ex(rsa, key_size, bn, NULL) != 1){
+    if (RSA_generate_key_ex(rsa, key_size, bn, NULL) != 1) {
         fprintf(stderr, "Error generating RSA key\n");
         RSA_free(rsa);
         BN_free(bn);
@@ -134,75 +130,108 @@ int RSACommLib_Init(int key_size, const char *path_to_priv_key, const char *path
     return 0;
 }
 
-int RSACommLib_Encrypt(const char *public_key_file, const char *input_buffer, char *output_buffer) {
+int base64_encode(const unsigned char* input, int length, char* output) {
+    BIO *bio, *b64;
+    BUF_MEM *bufferPtr;
+    
+    b64 = BIO_new(BIO_f_base64());
+    bio = BIO_new(BIO_s_mem());
+    bio = BIO_push(b64, bio);
+    BIO_set_flags(bio, BIO_FLAGS_BASE64_NO_NL);
+    
+    BIO_write(bio, input, length);
+    BIO_flush(bio);
+    BIO_get_mem_ptr(bio, &bufferPtr);
 
+    memcpy(output, bufferPtr->data, bufferPtr->length);
+    output[bufferPtr->length] = '\0';
+
+    BIO_free_all(bio);
+    return bufferPtr->length;
+}
+
+int base64_decode(const char *input, unsigned char *output) {
+    BIO *bio, *b64;
+    int decode_len = strlen(input);
+    
+    b64 = BIO_new(BIO_f_base64());
+    bio = BIO_new_mem_buf((void *)input, decode_len);
+    bio = BIO_push(b64, bio);
+    BIO_set_flags(bio, BIO_FLAGS_BASE64_NO_NL);
+
+    int output_length = BIO_read(bio, output, decode_len);
+    BIO_free_all(bio);
+
+    return output_length;
+}
+
+int RSACommLib_Encrypt(const char *public_key_file, const char *input_buffer, char *output_buffer) {
     FILE *pubkey_file = fopen(public_key_file, "r");
-    if (pubkey_file == NULL) {
+    if (!pubkey_file) {
         fprintf(stderr, "Could not open public key file %s\n", public_key_file);
         return -1;
     }
 
     RSA *rsa = PEM_read_RSA_PUBKEY(pubkey_file, NULL, NULL, NULL);
     fclose(pubkey_file);
-    if (rsa == NULL) {
+    if (!rsa) {
         fprintf(stderr, "Unable to read public key\n");
-        printError();
+        handleErrors();
         return -1;
     }
 
     int input_length = strlen(input_buffer);
     int rsa_size = RSA_size(rsa);
-
-    if (input_length > rsa_size - RSA_PADDING_OVERHEAD) {
-        fprintf(stderr, "Input buffer is too large for the RSA key size\n");
-        printError();
-        RSA_free(rsa);
-        return -1;
-    }
+    unsigned char encrypted_buffer[rsa_size];
 
     int encrypted_length = RSA_public_encrypt(input_length, (unsigned char *)input_buffer,
-                                              (unsigned char *)output_buffer,
-                                              rsa, RSA_PKCS1_OAEP_PADDING);
-
+                                              encrypted_buffer, rsa, RSA_PKCS1_OAEP_PADDING);
     RSA_free(rsa);
     if (encrypted_length == -1) {
-        fprintf(stderr, "RSA_public_encrypt failed to encrypt data\n");
+        fprintf(stderr, "RSA_public_encrypt failed\n");
+        handleErrors();
         return -1;
     }
 
-    return encrypted_length;
+    int base64_length = calculate_base64_encoded_size(encrypted_length);
+    if (base64_encode(encrypted_buffer, encrypted_length, output_buffer) < 0) {
+        fprintf(stderr, "Base64 encoding failed\n");
+        return -1;
+    }
+    return base64_length;
 }
 
 int RSACommLib_Decrypt(const char *private_key_file, const char *input_buffer, char *output_buffer) {
-
     FILE *privkey_file = fopen(private_key_file, "r");
-    if (privkey_file == NULL) {
+    if (!privkey_file) {
         fprintf(stderr, "Could not open private key file %s\n", private_key_file);
         return -1;
     }
 
     RSA *rsa = PEM_read_RSAPrivateKey(privkey_file, NULL, NULL, NULL);
     fclose(privkey_file);
-    if (rsa == NULL) {
+    if (!rsa) {
         fprintf(stderr, "Unable to read private key\n");
+        handleErrors();
         return -1;
     }
 
     int rsa_size = RSA_size(rsa);
-    if (rsa_size <= 0) {
-        fprintf(stderr, "Invalid RSA key size\n");
-        RSA_free(rsa);
+    unsigned char decoded_buffer[rsa_size];
+
+    int decoded_length = base64_decode(input_buffer, decoded_buffer);
+    if (decoded_length <= 0) {
+        fprintf(stderr, "Base64 decoding failed\n");
         return -1;
     }
 
-    int decrypted_length = RSA_private_decrypt(rsa_size, (unsigned char *)input_buffer,
-                                                (unsigned char *)output_buffer,
-                                                rsa, RSA_PKCS1_OAEP_PADDING);
-
+    int decrypted_length = RSA_private_decrypt(decoded_length, decoded_buffer,
+                                               (unsigned char *)output_buffer,
+                                               rsa, RSA_PKCS1_OAEP_PADDING);
     RSA_free(rsa);
     if (decrypted_length == -1) {
-        fprintf(stderr, "RSA_private_decrypt failed to decrypt data\n");
-        printError();
+        fprintf(stderr, "RSA_private_decrypt failed\n");
+        handleErrors();
         return -1;
     }
 
