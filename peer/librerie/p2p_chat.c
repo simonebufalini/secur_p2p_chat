@@ -144,13 +144,14 @@ char dummy;
         return;
     }
 
-    char hex_string[ciphertext_len * 2 + 1];
-    for (int i = 0; i < ciphertext_len; i++) {
-        sprintf(hex_string + i * 2, "%02X", (unsigned char)ciphertext[i]);
-    }
-    hex_string[ciphertext_len * 2] = '\0';
+   // char hex_string[ciphertext_len * 2 + 1];
+    //for (int i = 0; i < ciphertext_len; i++) {
+    //    sprintf(hex_string + i * 2, "%02X", (unsigned char)ciphertext[i]);
+ //   }
+  //  hex_string[ciphertext_len * 2] = '\0';
 
-    send(sock, hex_string, strlen(hex_string), 0);
+   // send(sock, hex_string, strlen(hex_string), 0);
+    send(sock,ciphertext,strlen(ciphertext), 0);
     printf("\nMessage sent.\n");
 
     close(sock);
