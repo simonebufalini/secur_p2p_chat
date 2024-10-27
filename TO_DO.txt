@@ -1,0 +1,1 @@
+quando premi 0 nella chat (o Ctrl+C) lui deve disattivare il vpn
