@@ -23,7 +23,9 @@ void sending(char *TargetIp, char *pathToPeerPubKey);
 void receiving(int server_fd);
 void *receive_thread(void *server_fd);
 
-char *pathToHostPrivateKey= NULL;
+
+//char *pathToHostPrivateKey= NULL;
+char *pathToHostPrivateKey[256];
 
 
 int secureP2Pchat_simone(char* TargetIp, char* peer_s_pubKeyPath, char* pathToHostPrivKey)
@@ -32,8 +34,8 @@ int secureP2Pchat_simone(char* TargetIp, char* peer_s_pubKeyPath, char* pathToHo
     	char *workingDirectory = get_cwd();
         const char *fileChiave = concatenateStrings(workingDirectory, ".secrets/public_key.pem");
 
-        pathToHostPrivateKey = pathToHostPrivKey;
-
+        //pathToHostPrivateKey = pathToHostPrivKey;
+        snprintf(pathToHostPrivateKey, sizeof(pathToHostPrivateKey), "%s", pathToHostPrivKey);
 
         char name[25];
 
@@ -109,6 +111,7 @@ system(comandoAllowPorta);
 
     return 0;
 }
+
 void sending(char* TargetIp, char *pathToPeerPubKey) {
     char buffer[2000] = {0};
     int PORT_server = PORT;
