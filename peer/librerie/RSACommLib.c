@@ -202,6 +202,7 @@ int RSACommLib_Decrypt(const char *private_key_file, const char *input_buffer, c
     RSA_free(rsa);
     if (decrypted_length == -1) {
         fprintf(stderr, "RSA_private_decrypt failed to decrypt data\n");
+        printError();
         return -1;
     }
 
