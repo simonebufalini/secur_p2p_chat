@@ -1,4 +1,3 @@
-
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
 #include <openssl/err.h>
@@ -167,7 +166,7 @@ int RSACommLib_Encrypt(const char *public_key_file, const char *input_buffer, ch
 
     int input_length = strlen(input_buffer);
     int rsa_size = RSA_size(rsa);
-    unsigned char encrypted_buffer[rsa_size];
+    unsigned char *encrypted_buffer = (unsigned char *)malloc(rsa_size);
 
     int encrypted_length = RSA_public_encrypt(input_length, (unsigned char *)input_buffer, encrypted_buffer, rsa, RSA_PKCS1_OAEP_PADDING);
     RSA_free(rsa);
@@ -200,7 +199,7 @@ int RSACommLib_Decrypt(const char *private_key_file, const char *input_buffer, c
     }
 
     int rsa_size = RSA_size(rsa);
-    unsigned char decoded_buffer[rsa_size];
+    unsigned char *decoded_buffer = (unsigned char *)malloc(rsa_size);
 
     int decoded_length = base64_decode(input_buffer, decoded_buffer, rsa_size);
     if (decoded_length <= 0) {
